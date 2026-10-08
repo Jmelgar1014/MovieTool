@@ -5,14 +5,14 @@ export function SearchHeader() {
   return (
     <div className="">
       <div className="flex justify-between">
-        <div className="m-2">
+        <div className="my-2">
           <FilterTabs />
         </div>
         <div className="flex">
-          <div className="m-2">
+          <div className="my-2">
             <SearchGroup />
           </div>
-          <div className="m-2">
+          <div className="my-2">
             <GenreSelect />
           </div>
         </div>

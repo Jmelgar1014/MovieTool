@@ -14,14 +14,9 @@ export function MovieGrid() {
 
   return (
     <ul className="my-4 grid gap-4 justify-items-center grid-cols-1 sm:grid-cols-2 sm:justify-items-stretch md:grid-cols-3 lg:grid-cols-4 ">
-      {movies.map(({ title, format, genre, Id, posterPath }) => (
-        <li className=" " key={Id}>
-          <MovieCards
-            title={title}
-            format={format}
-            genre={genre}
-            posterPath={posterPath}
-          />
+      {movies.map(({ title, format, Id, posterPath }) => (
+        <li className="rounded-4xl" key={Id}>
+          <MovieCards title={title} format={format} posterPath={posterPath} />
         </li>
       ))}
     </ul>

@@ -6,7 +6,7 @@ import {
 
 export function GenreSelect() {
   return (
-    <NativeSelect>
+    <NativeSelect className="mx-2">
       <NativeSelectOption value="All Genres">All Genres</NativeSelectOption>
       <NativeSelectOption value="Action">Action</NativeSelectOption>
       <NativeSelectOption value="Horror">Horror</NativeSelectOption>
