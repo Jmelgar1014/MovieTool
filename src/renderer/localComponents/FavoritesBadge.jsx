@@ -1,19 +1,18 @@
 import { Badge } from "@/components/ui/badge";
 import { Heart } from "lucide-react";
 
-export function FavoritesBadge({ watchedMovie, updateWatch }) {
+export function FavoritesBadge({ favoriteMovie, updateFavorite }) {
   return (
     <button
-      onClick={updateWatch}
-      disabled={watchedMovie}
+      onClick={updateFavorite}
       className={`absolute top-2 left-4 z-10 transition-opacity ${
-        watchedMovie
+        favoriteMovie
           ? "opacity-100"
           : "opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto"
       }`}
     >
       <Badge>
-        <Heart className={watchedMovie ? "fill-white" : ""} />
+        <Heart className={favoriteMovie ? "fill-white" : ""} />
       </Badge>
     </button>
   );
