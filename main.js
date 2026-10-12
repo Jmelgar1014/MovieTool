@@ -14,6 +14,19 @@ ipcMain.handle("api:get-movies", async () => {
   return res.json();
 });
 
+ipcMain.handle("api:update-watched", async (event, id, watched) => {
+  const res = await fetch(`${API_URL}/${id}/watched`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(watched),
+  });
+  if (!res.ok) {
+    const detail = await res.text();
+    throw new Error(`PUT failed: ${res.status}`);
+  }
+  return res.ok;
+});
+
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 800,
