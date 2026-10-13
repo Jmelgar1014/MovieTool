@@ -1,12 +1,15 @@
 import { SearchGroup } from "./SearchGroup";
 import { GenreSelect } from "./GenreSelect";
 import { FilterTabs } from "./FilterTabs";
-export function SearchHeader() {
+export function SearchHeader({ tabSelection, setTabSelection }) {
   return (
     <div className="">
       <div className="flex justify-between">
         <div className="my-2">
-          <FilterTabs />
+          <FilterTabs
+            setTabSelection={setTabSelection}
+            tabSelection={tabSelection}
+          />
         </div>
         <div className="flex">
           <div className="my-2">

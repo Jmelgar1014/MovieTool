@@ -1,8 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export function FilterTabs() {
+export function FilterTabs({ tabSelection, setTabSelection }) {
   return (
-    <Tabs className="">
+    <Tabs className="" value={tabSelection} onValueChange={setTabSelection}>
       <TabsList className="h-16">
         <TabsTrigger className="" value="All">
           All
