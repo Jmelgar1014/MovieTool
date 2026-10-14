@@ -5,13 +5,23 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [tabSelection, setTabSelection] = useState("All");
 
-  const markWatched = async (id) => {
+  const markFavorite = async (id) => {
     const movie = movies.find((m) => m.id === id);
     const next = !movie.favorites;
     await window.api.updateFavorites(id, next);
 
     setMovies((prev) =>
       prev.map((m) => (m.id === id ? { ...m, favorites: next } : m)),
+    );
+  };
+
+  const markWatched = async (id) => {
+    const movie = movies.find((m) => m.id === id);
+    const next = !movie.watchedMovie;
+    await window.api.markWatched(id, next);
+
+    setMovies((prev) =>
+      prev.map((m) => (m.id === id ? { ...m, watchedMovie: next } : m)),
     );
   };
 
@@ -44,7 +54,11 @@ function App() {
         setTabSelection={setTabSelection}
       />
       <div className="flex justify-center">
-        <MovieGrid movies={filteredMovies} markWatched={markWatched} />
+        <MovieGrid
+          movies={filteredMovies}
+          markFavorite={markFavorite}
+          markWatched={markWatched}
+        />
       </div>
     </div>
   );

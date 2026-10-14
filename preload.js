@@ -5,4 +5,6 @@ contextBridge.exposeInMainWorld("api", {
   getMovies: () => ipcRenderer.invoke("api:get-movies"),
   updateFavorites: (id, favorite) =>
     ipcRenderer.invoke("api:update-favorite", id, favorite),
+  markWatched: (id, watched) =>
+    ipcRenderer.invoke("api:mark-watched", id, watched),
 });

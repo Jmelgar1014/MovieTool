@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain } from "electron";
 import fetch from "node-fetch";
 import { fileURLToPath } from "url";
 import path from "path";
+import { error } from "console";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -15,7 +16,7 @@ ipcMain.handle("api:get-movies", async () => {
 });
 
 ipcMain.handle("api:update-favorite", async (event, id, favorite) => {
-  const res = await fetch(`${API_URL}/${id}/watched`, {
+  const res = await fetch(`${API_URL}/${id}/favorite`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(favorite),
@@ -23,6 +24,19 @@ ipcMain.handle("api:update-favorite", async (event, id, favorite) => {
   if (!res.ok) {
     const detail = await res.text();
     throw new Error(`PUT failed: ${res.status}`);
+  }
+  return res.ok;
+});
+
+ipcMain.handle("api:mark-watched", async (event, id, watched) => {
+  const res = await fetch(`${API_URL}/${id}/watched`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(watched),
+  });
+  if (!res.ok) {
+    const detail = await res.text();
+    throw new Error(`PUT failed ${res.status} - ${detail}`);
   }
   return res.ok;
 });
