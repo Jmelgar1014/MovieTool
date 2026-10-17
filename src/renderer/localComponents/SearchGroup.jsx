@@ -6,10 +6,14 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 
-export function SearchGroup() {
+export function SearchGroup({ searchInput, setSearchInput }) {
   return (
     <InputGroup className="max-w-3xs">
-      <InputGroupInput placeholder="Search" />
+      <InputGroupInput
+        placeholder="Search"
+        value={searchInput}
+        onChange={(e) => setSearchInput(e.target.value)}
+      />
       <InputGroupAddon>
         <Search />
       </InputGroupAddon>

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 function App() {
   const [movies, setMovies] = useState([]);
   const [tabSelection, setTabSelection] = useState("All");
+  const [search, setSearch] = useState("");
 
   const markFavorite = async (id) => {
     const movie = movies.find((m) => m.id === id);
@@ -25,6 +26,12 @@ function App() {
     );
   };
 
+  const inputSearch = async (input) => {
+    var filteredSearchMovies = movies.filter((movie) => {
+      movie.title.toLowerCase().includes(input.toLowerCase());
+    });
+  };
+
   useEffect(() => {
     async function loadMovies() {
       const data = await window.api.getMovies();
@@ -35,16 +42,20 @@ function App() {
   }, []);
 
   const filteredMovies = movies.filter((movie) => {
-    switch (tabSelection) {
-      case "Watched":
-        return movie.watchedMovie;
-      case "To Watch":
-        return !movie.watchedMovie;
-      case "Favorites":
-        return movie.favorites;
-      default:
-        return true;
-    }
+    const matchesTab =
+      tabSelection === "Watched"
+        ? movie.watchedMovie
+        : tabSelection === "To Watch"
+          ? !movie.watchedMovie
+          : tabSelection === "Favorites"
+            ? movie.favorites
+            : true;
+
+    const matchesSearch = movie.title
+      .toLowerCase()
+      .includes(search.toLocaleLowerCase());
+
+    return matchesTab && matchesSearch;
   });
 
   return (
@@ -52,6 +63,8 @@ function App() {
       <SearchHeader
         tabSelection={tabSelection}
         setTabSelection={setTabSelection}
+        searchInput={search}
+        setSearchInput={setSearch}
       />
       <div className="flex justify-center">
         <MovieGrid

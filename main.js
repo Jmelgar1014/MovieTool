@@ -41,6 +41,20 @@ ipcMain.handle("api:mark-watched", async (event, id, watched) => {
   return res.ok;
 });
 
+ipcMain.handle("api:search-input", async (title, format, genre) => {
+  const params = new URLSearchParams();
+
+  if (title) params.append("title", title);
+  if (format) params.append("format", format);
+  if (genre) params.append("genre", genre);
+
+  const res = await fetch(`${API_URL}/search?${params}`);
+
+  if (!res.ok) throw new Error(`Search failed: ${res.status}`);
+
+  return res.json();
+});
+
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 800,
